@@ -5,6 +5,84 @@
     <title>Title</title>
 </head>
 <body>
+    <ul id="pageDatas">
+    </ul>
+    <ul id="pageBtns"></ul>
 
+<script>
+    function init(){
+
+        var paginator = new PaginatorServerSide({
+            pageLength: 2,
+            //url: '/terminal/list',
+            ajax: (index,length,callback) => {
+                $.ajax({
+                    url: '/terminal/list',
+                    data: {
+                        length: length,
+                        start: index * length,
+                        draw: '0',
+                        "order[0][dir]": 'asc',
+                        "order[0][column]": "0",
+                        "columns[0][data]": "id",
+                        "search[value]": "",
+                    }
+                }).then(res => {
+                    callback(res)
+                })
+            },
+            datasFormat: response => {
+                return {
+                    total: response.recordsFiltered,
+                    datas: response.data,
+                }
+            },
+            renderSuccess: pageInfo => {
+
+                console.log(JSON.stringify(pageInfo))
+
+                var pageDatas = $('#pageDatas')
+                var pageBtns = $('#pageBtns')
+
+                //Clear ul
+                pageDatas.empty()
+                pageBtns.empty()
+
+                //Fill ul list
+                for(var item of pageInfo.datas){
+                    pageDatas.append('<li>'+item.name+'</li>')
+                }
+
+                //Add paginate buttons
+                if(pageInfo.hasLastPage){
+                    pageBtns.append('<button onclick="lastPage()"> < </button>')
+                }
+                for(var i=0;i<pageInfo.count;i++){
+                    pageBtns.append('<button onclick="gotoPage('+(i+1)+')">'+(i+1)+'</button>')
+                }
+                if(pageInfo.hasNextPage){
+                    pageBtns.append('<button onclick="nextPage()"> > </button>')
+                }
+
+            }
+        })
+
+        paginator.firstPage()
+
+        //TODO: Mock serverside return data => {data:{name: "fuck"}}
+
+        function gotoPage(index){
+            paginator.gotoPage(index)
+        }
+
+        function lastPage(){
+            paginator.lastPage()
+        }
+
+        function nextPage(){
+            paginator.nextPage()
+        }
+    }
+</script>
 </body>
 </html>
