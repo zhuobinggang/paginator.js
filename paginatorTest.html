@@ -21,6 +21,9 @@
         <button>修改</button>
         <button>删除</button>
     </div>
+    <div id="searcher">
+        <input v-model="searchValue" /><button v-on:click="search()">Search</button>
+    </div>
 </div>
 
 <script src="https://cdn.bootcss.com/vue/2.5.8/vue.min.js"></script>
@@ -39,6 +42,7 @@
             hasNext: false,
             pageNum: 0,
             user: false,
+            searchValue: '',
         },
         methods: {
             getDatas(){
@@ -80,7 +84,15 @@
                 this.datas = paginator.getDatas()
                 this.hasLast = paginator.hasLast()
                 this.hasNext = paginator.hasNext()
-            }
+            },
+            search: function () {
+                console.log("Search value is: "+this.searchValue)
+                paginator.search(this.searchValue)
+                this.datas = paginator.getDatas()
+                this.hasLast = paginator.hasLast()
+                this.hasNext = paginator.hasNext()
+                this.pageNum = paginator.getPageCount()
+            },
         },
         mounted() {
             this.getDatas().then(datas => {

@@ -19,6 +19,9 @@
         this.hasNextPage = false
         this.hasLastPage = false
 
+        //Datas backup when searched
+        this.datasBackup = []
+
         //endregion
 
         //Option defaults
@@ -90,6 +93,7 @@
             this.total = this.datas.length
             this.pageCount = Math.floor((this.total + 1) / this.getPageLength())
 
+            this.currentIndex = 1//Reset to page 1
             this.updateIndexChanged()
         },
         hasLast: function () {
@@ -130,6 +134,47 @@
         },
         getPageLength: function () {
             return this.setting.pageLength
+        },
+        search: function (value) {
+            if(!value || value.length < 1){//If search value empty
+                //console.log('Search value empty')
+                if(this.datasBackup.length > 0){//If backuped
+                    //console.log('Search value empty and backuped')
+                    this.datas = this.datasBackup
+                    this.datasBackup = []//Reset datasBackup
+                    this.updateDatasChanged()
+                }
+                return
+            }
+
+            if(this.datasBackup.length < 1){//Backup datas
+                //console.log('Backup datas')
+                this.datasBackup = this.datas
+            }
+
+            this.datas = this.filter(this.getValidator(value), this.datasBackup)
+            this.updateDatasChanged()
+            //console.log('Filtered,Please check datas')
+        },
+        filter: function(fn,datas){
+            var result = []
+            for(var item of datas){
+                for(var param in item){
+                    if(fn(item[param]) == true)
+                        result.push(item)
+                }
+            }
+            return result
+        },
+        getValidator: function (value) {
+            return function(str){
+                var type = typeof str
+                //Can accept string,number and boolean types
+                if(type === "string" || type === 'number' || type === 'boolean') {
+                    return ('' + str).indexOf(value) !== -1
+                }
+                return false
+            }
         }
     }
 
