@@ -27,6 +27,7 @@
         //Option defaults
         var defaults = {
             pageLength: 10,
+            searchColNames: [],//Params to searched
         }
 
         //Setting
@@ -158,12 +159,27 @@
         },
         filter: function(fn,datas){
             var result = []
+            var searchColNames = []
+
+            if(datas.length < 1)
+                return result
+
+            //Init params by setting
+            if(this.setting.searchColNames.length > 0){
+                searchColNames = this.setting.searchColNames
+            }else{
+                searchColNames = Object.getOwnPropertyNames(datas[0])
+            }
+
             for(var item of datas){
-                for(var param in item){
-                    if(fn(item[param]) == true)
+                for(var colName of searchColNames){
+                    if(fn(item[colName]) == true){
                         result.push(item)
+                        break
+                    }
                 }
             }
+
             return result
         },
         getValidator: function (value) {
