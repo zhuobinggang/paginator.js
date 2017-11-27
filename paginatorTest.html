@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<div id="app">
+    <ul id="container">
+        <li v-for="item in datas">
+            {{item.id}} : {{item.name}}
+        </li>
+    </ul>
+    <div id="paginate">
+        <button v-if="hasLast" v-on:click="lastPage()">Last</button>
+        <button v-for="item in pageNum" v-on:click="gotoPage(item)">{{item}}</button>
+        <button v-if="hasNext" v-on:click="nextPage()">Next</button>
+    </div>
+    <div id="funcs" v-if="user">
+        <button>添加</button>
+        <button>修改</button>
+        <button>删除</button>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.5.8/vue.min.js"></script>
+<script src="./js/paginate.js"></script>
+<script>
+
+    var paginator = new Paginator({
+        pageLength: 2,
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            datas: [],
+            hasLast: false,
+            hasNext: false,
+            pageNum: 0,
+            user: false,
+        },
+        methods: {
+            getDatas(){
+                return new Promise((res,rej) => {
+                    res([
+                        {id: '0',name: 'Mike'},
+                        {id: '1',name: 'John'},
+                        {id: '2',name: 'Lily1'},
+                        {id: '3',name: 'Lily2'},
+                        {id: '4',name: 'Lily3'},
+                        {id: '5',name: 'Lily4'},
+                        {id: '6',name: 'Lily5'},
+                        {id: '7',name: 'Lily6'},
+                        {id: '8',name: 'Lily7'},
+                    ])
+                })
+            },
+            getUser(){
+                return new Promise((res, rej) => {
+                    res({
+                        result: 'success'
+                    })
+                })
+            },
+            nextPage: function () {
+                paginator.nextPage()
+                this.datas = paginator.getDatas()
+                this.hasLast = paginator.hasLast()
+                this.hasNext = paginator.hasNext()
+            },
+            lastPage: function () {
+                paginator.prePage()
+                this.datas = paginator.getDatas()
+                this.hasLast = paginator.hasLast()
+                this.hasNext = paginator.hasNext()
+            },
+            gotoPage: function (index) {
+                paginator.gotoPage(index)
+                this.datas = paginator.getDatas()
+                this.hasLast = paginator.hasLast()
+                this.hasNext = paginator.hasNext()
+            }
+        },
+        mounted() {
+            this.getDatas().then(datas => {
+                paginator.pushData(datas)
+                paginator.gotoPage(1)
+
+                this.datas = paginator.getDatas()
+                this.hasLast = paginator.hasLast()
+                this.hasNext = paginator.hasNext()
+                this.pageNum = paginator.getPageCount()
+
+                console.log('Please check page info!')
+            })
+
+            this.getUser().then(res => {
+                this.user = res.result == 'success'
+                console.log('Test user: '+this.user)
+            })
+        },
+    })
+
+</script>
+</body>
+</html>

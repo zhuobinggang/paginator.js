@@ -175,7 +175,7 @@
             },
             gotoPage: function (pageIndex) {
                 //EventBus.dispatch('jumpto',this,pageIndex)
-                if(pageIndex == this.currentIndex || pageIndex <= 1 || pageIndex >= this.pageCount)retutn
+                if(pageIndex == this.currentIndex || pageIndex <= 1 || pageIndex >= this.pageCount)return
 
                 this.currentIndex = pageIndex
 
