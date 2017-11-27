@@ -36,7 +36,7 @@
     window.Paginator.prototype = {
         prePage: function () {
             //EventBus.dispatch('prepage')
-            console.log('paginate.js:: prePage()')
+            //console.log('paginate.js:: prePage()')
 
             this.changeCurrentIndex(this.getCurrentIndex() - 1)
         },
@@ -45,13 +45,13 @@
         },
         nextPage: function () {
             //EventBus.dispatch('nextpage')
-            console.log('paginate.js:: nextPage()')
+            //console.log('paginate.js:: nextPage()')
             
             this.changeCurrentIndex(this.getCurrentIndex() + 1)
         },
         firstPage: function () {
             //EventBus.dispatch('firstpage')
-            console.log('paginate.js:: firstPage()')
+            //console.log('paginate.js:: firstPage()')
             
             this.changeCurrentIndex(1)
         },
@@ -63,13 +63,13 @@
         },
         lastPage: function () {
             //EventBus.dispatch('lastpage')
-            console.log('paginate.js:: lastPage()')
+            //console.log('paginate.js:: lastPage()')
             
             this.changeCurrentIndex(this.getPageCount())
         },
         gotoPage: function (pageIndex) {
             //EventBus.dispatch('jumpto',this,pageIndex)
-            console.log('paginate.js:: gotoPage() <= ' + pageIndex)
+            //console.log('paginate.js:: gotoPage() <= ' + pageIndex)
             
             this.changeCurrentIndex(pageIndex)
         },
@@ -106,7 +106,7 @@
                 return
             
             this.currentIndex = index
-            console.log('ChangeCurrentIndex')
+            //console.log('ChangeCurrentIndex')
             
             this.updateIndexChanged()
         },
