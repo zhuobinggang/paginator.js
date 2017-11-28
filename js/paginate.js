@@ -92,11 +92,19 @@
         },
         updateDatasChanged: function () {
             this.total = this.datas.length
-            this.pageCount = Math.floor((this.total + 1) / this.getPageLength())
+            this.pageCount = this.calculatePageCount(this.total,this.getPageLength())
 
             this.currentIndex = 1//Reset to page 1
             this.updateIndexChanged()
         },
+		calculatePageCount: function(count,pageLength){
+			var result = Math.floor(count / pageLength)
+			
+			if(count % pageLength != 0)
+				result += 1
+			
+			return result
+		},
         hasLast: function () {
             return this.hasLastPage
         },
