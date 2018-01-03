@@ -10,10 +10,10 @@
         //Update only after datas changed
         this.total = 0
         this.pageCount = 0
-        
+
         //Update when page changed
         this.currentIndex = 1
-        
+
         //Update when datas changed and page changed
         this.currentPageDatas = []
         this.hasNextPage = false
@@ -50,31 +50,31 @@
         nextPage: function () {
             //EventBus.dispatch('nextpage')
             //console.log('paginate.js:: nextPage()')
-            
+
             this.changeCurrentIndex(this.getCurrentIndex() + 1)
         },
         firstPage: function () {
             //EventBus.dispatch('firstpage')
             //console.log('paginate.js:: firstPage()')
-            
+
             this.changeCurrentIndex(1)
         },
         checkIndexValid: function (index) {
             if (index == this.currentIndex || index < 1 || index > this.pageCount)
                 return false
-            
+
             return true
         },
         lastPage: function () {
             //EventBus.dispatch('lastpage')
             //console.log('paginate.js:: lastPage()')
-            
+
             this.changeCurrentIndex(this.getPageCount())
         },
         gotoPage: function (pageIndex) {
             //EventBus.dispatch('jumpto',this,pageIndex)
             //console.log('paginate.js:: gotoPage() <= ' + pageIndex)
-            
+
             this.changeCurrentIndex(pageIndex)
         },
         getDatas: function () {
@@ -97,14 +97,14 @@
             this.currentIndex = 1//Reset to page 1
             this.updateIndexChanged()
         },
-		calculatePageCount: function(count,pageLength){
-			var result = Math.floor(count / pageLength)
-			
-			if(count % pageLength != 0)
-				result += 1
-			
-			return result
-		},
+        calculatePageCount: function(count,pageLength){
+            var result = Math.floor(count / pageLength)
+
+            if(count % pageLength != 0)
+                result += 1
+
+            return result
+        },
         hasLast: function () {
             return this.hasLastPage
         },
@@ -115,12 +115,12 @@
             return this.pageCount
         },
         changeCurrentIndex: function (index) {
-            if(!this.checkIndexValid(index)) 
+            if(!this.checkIndexValid(index))
                 return
-            
+
             this.currentIndex = index
             //console.log('ChangeCurrentIndex')
-            
+
             this.updateIndexChanged()
         },
         updateIndexChanged: function () {
