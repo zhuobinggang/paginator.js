@@ -39,24 +39,15 @@
 
     window.Paginator.prototype = {
         prePage: function () {
-            //EventBus.dispatch('prepage')
-            //console.log('paginate.js:: prePage()')
-
             this.changeCurrentIndex(this.getCurrentIndex() - 1)
         },
         getCurrentIndex: function () {
             return this.currentIndex
         },
         nextPage: function () {
-            //EventBus.dispatch('nextpage')
-            //console.log('paginate.js:: nextPage()')
-
             this.changeCurrentIndex(this.getCurrentIndex() + 1)
         },
         firstPage: function () {
-            //EventBus.dispatch('firstpage')
-            //console.log('paginate.js:: firstPage()')
-
             this.changeCurrentIndex(1)
         },
         checkIndexValid: function (index) {
@@ -66,27 +57,22 @@
             return true
         },
         lastPage: function () {
-            //EventBus.dispatch('lastpage')
-            //console.log('paginate.js:: lastPage()')
-
             this.changeCurrentIndex(this.getPageCount())
         },
         gotoPage: function (pageIndex) {
-            //EventBus.dispatch('jumpto',this,pageIndex)
-            //console.log('paginate.js:: gotoPage() <= ' + pageIndex)
-
             this.changeCurrentIndex(pageIndex)
         },
         getDatas: function () {
             return this.currentPageDatas
         },
-        pushData: function (datas) {
+        pushData: function (datas) {//Will go to first page
 
             if (!(datas instanceof Array)) {
                 datas = [datas]
             }
 
-            Array.prototype.push.apply(this.datas, datas)
+            //Array.prototype.push.apply(this.datas, datas)
+            this.datas.push(...datas)
 
             this.updateDatasChanged()
         },
@@ -161,11 +147,11 @@
                 this.datasBackup = this.datas
             }
 
-            this.datas = this.filter(this.getValidator(value), this.datasBackup)
+            this.datas = this._filter(this._getValidator(value), this.datasBackup)
             this.updateDatasChanged()
             //console.log('Filtered,Please check datas')
         },
-        filter: function(fn,datas){
+        _filter: function(fn,datas){
             var result = []
             var searchColNames = []
 
@@ -190,7 +176,7 @@
 
             return result
         },
-        getValidator: function (value) {
+        _getValidator: function (value) {
             return function(str){
                 var type = typeof str
                 //Can accept string,number and boolean types
