@@ -17,12 +17,15 @@
         <button v-if="hasNext" v-on:click="nextPage()">Next</button>
     </div>
     <div id="funcs" v-if="user">
-        <button>添加</button>
-        <button>修改</button>
-        <button>删除</button>
+        <!--<button>添加</button>-->
+        <!--<button>修改</button>-->
+        <!--<button>删除</button>-->
+
     </div>
     <div id="searcher">
-        <input v-model="searchValue" /><button v-on:click="search()">Search</button>
+        <input v-model="searchValue" />
+        <button v-on:click="search()">Search</button>
+        <button v-on:click="searchEmpty()">Clear Search</button>
     </div>
 </div>
 
@@ -53,6 +56,10 @@
                         {id: '1',name: 'John'},
                         {id: '2',name: 'Lily1'},
                         {id: '3',name: 'Lily2'},
+                        {id: '4',name: 'Lily3'},
+                        {id: '5',name: 'Lily4'},
+                        {id: '6',name: 'Lily5'},
+                        {id: '99',name: 'Lily99'},
                     ])
                 })
             },
@@ -89,6 +96,13 @@
                 this.hasNext = paginator.hasNext()
                 this.pageNum = paginator.getPageCount()
             },
+            searchEmpty(){
+                paginator.search('')
+                this.datas = paginator.getDatas()
+                this.hasLast = paginator.hasLast()
+                this.hasNext = paginator.hasNext()
+                this.pageNum = paginator.getPageCount()
+            }
         },
         mounted() {
             this.getDatas().then(datas => {
