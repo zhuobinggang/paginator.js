@@ -6,6 +6,8 @@ Provide functionality to get data by page,check if has pre or next page,and sear
 
 Dependency on `window` of browser currently.
 
+[Click to see live example](https://zhuobinggang.github.io/paginator.js/)
+
 ### How to use
 Use through script tag in html
 ```html
