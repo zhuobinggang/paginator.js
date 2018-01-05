@@ -1,0 +1,15 @@
+{
+  "name": "paginator.js",
+  "version": "1.0.0",
+  "description": "A container for paginating and searching on datas",
+  "main": "js/paginate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/kobako/paginator.git"
+  },
+  "author": "kobako",
+  "license": "ISC"
+}

@@ -1,7 +1,7 @@
-(function () {
+(function (exports) {
     'use strict'
 
-    window.Paginator = function (options) {
+    const Paginator = function (options) {
 
         //region Global references
 
@@ -37,7 +37,7 @@
 
     }
 
-    window.Paginator.prototype = {
+    Paginator.prototype = {
         prePage: function () {
             this.changeCurrentIndex(this.getCurrentIndex() - 1)
         },
@@ -188,6 +188,7 @@
         }
     }
 
-    window.Paginator.prototype.constructor = window.Paginator
+    Paginator.prototype.constructor = Paginator
 
-}())
+    exports.Paginator = Paginator
+})(typeof exports === 'undefined' ? this['paginator'] = {} : exports)
