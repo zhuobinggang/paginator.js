@@ -190,5 +190,7 @@
 
     Paginator.prototype.constructor = Paginator
 
-    exports.Paginator = Paginator
+    exports.create = (options) => {
+        return new Paginator(options)
+    }
 })(typeof exports === 'undefined' ? this['paginator'] = {} : exports)

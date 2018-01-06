@@ -1,6 +1,6 @@
 {
   "name": "paginator.js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A container for paginating and searching on datas",
   "main": "js/paginate.js",
   "scripts": {
