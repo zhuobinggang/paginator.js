@@ -9,7 +9,7 @@ Provide functionality to get data by page,check if has pre or next page,and sear
 ### How to use
 Use through script tag in html
 ```html
-<script src="./js/paginate.js"></script>
+<script src="./js/paginator.js"></script>
 <script>
 var pager = paginator.create({
     pageLength: 2,
@@ -19,7 +19,7 @@ var pager = paginator.create({
 ```
 Use in node
 ```js
-const paginator = require('paginate')
+const paginator = require('paginator')
 const pager = paginator.create({
     pageLength: 2,
     searchColNames: ['id','name']
